@@ -68,8 +68,15 @@ const VideoList = (props) => {
     // Then, it will throw away all elements of the array.
     // Therefore, it does throw away them and render() again without the key.
     // Youtube video has a unique "etag", a key of each video item. So we can use this key for the unique ID.
-    // Key must be same component where map or loop statements exist!!!!
-        return (<VideoListItem key={vdList.etag} vd = { vdList }/>);        
+    // Key must be in same component where map or loop statements exist!!!!
+        return (<VideoListItem 
+            
+            selected = { props.onVideoSelect }
+            key = { vdList.etag } 
+            vd = { vdList }
+            
+            
+            />);        
 
     });
     

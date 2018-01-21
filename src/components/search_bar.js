@@ -75,7 +75,7 @@ class SearchBar extends Component {
             // It is a trigger. 
             // The controlled component "value" received the change only when the render executes again.
 
-        <div>
+        <div className="search-bar">
             <input
                 value = {this.state.term} 
                 onChange = {event => this.setState({ term: event.target.value })} />
