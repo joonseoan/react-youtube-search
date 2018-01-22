@@ -25,9 +25,15 @@ const VideoListItem = (props) => {}
     return (
         // In <img className="media-object" />, / is required because img tag does not have </img>.
         // It is a rule of JSX.
-        // ***** (vd) of selected(vd) is clickedVideo!!
-        //       selected is from VideoList component in video_list.js
+        // ***** (vd) of selected(vd) is selectedVideo in App components!!
+        //       "selected" is from VideoList component in video_list.js
+        //       "selected" of VideoList component from "onVideoList" of App component
+        //       "onVideoList is an property using (selectedVideo) = > setState({selectedVideo})"
+        //       Therefore, vd = "selectedVideo" and "selected" is a function 
+        //              "selectedVideo = > setState({selectedVideo})" that passes "selectedVideo or vd"
         //       ****** We must use the property name directly from its parent.!!!!! 
+        // selected(vd) ==> what???
+        // ***** "selected" passes "vd"
            <li onClick = { () => selected(vd) }  className = "list-group-item">
             <div className = "video-list-media">
                 <div className = "media-left">

@@ -14,7 +14,8 @@ return (
 }; */
 
 // ES6 class to receive React.Component
-/*class SearchBar extends React.Component {
+/*
+class SearchBar extends React.Component {
 
     // class components -> render method.
     render() {
@@ -74,15 +75,41 @@ class SearchBar extends Component {
             // The key is that "onChange = {event => this.setState({ term: event.target.value })} />" does not change the value.
             // It is a trigger. 
             // The controlled component "value" received the change only when the render executes again.
-
+        /*
+        //1)
         <div className="search-bar">
             <input
                 value = {this.state.term} 
                 onChange = {event => this.setState({ term: event.target.value })} />
            
         </div>
+        */
+
+        // term is an input data from the user.
+        // the term is assgined to a "value" attribute
+        // "event.target.value" changes data of "value" by using "onInputChange" function
+        // "onChange" and "event" are components of the event handler.
+
+        // [FYI] "onClick" format or syntax is different from "onChange"
+        // In case of "onChange", it is required to us event.target.value
+        //2)
+        <div className = "search-bar">
+            <input
+                value = { this.state.term } 
+                onChange = { event => this.onInputChange(event.target.value) } />
+           
+        </div>
+
         );
-}
+ 
+    }
+
+    onInputChange(term) {
+
+        this.setState({ term });
+        this.props.onSearch(term);
+
+    }
 
     // event handler (whenever the event occurs, it is the guide of action)
     // event: typing in!!!

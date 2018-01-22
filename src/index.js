@@ -1,4 +1,7 @@
 
+// "_" is Lodash
+import _ from 'lodash';
+
 // use React variable from 'react' library or moduel.
 import React, { Component } from 'react';
 
@@ -109,6 +112,7 @@ class App extends Component {
         //2)
         // I moved this function to fill out data in the array above.
         // Without this function with this location, no information will show up when we initilize the program.
+        /*
         YoutubeSearch({key: API_KEY, term: 'funny'}, (data) => {
 
             // Just remind that videos are the property above, and data is in format of an array.
@@ -121,22 +125,41 @@ class App extends Component {
             });
             
         });
-
+        */
         
-            /*
+        /*
         YoutubeSearch({key: API_KEY, term: 'funny'}, (videos) => {
 
             // When we are using same property name as argument name, we are able to condense the code as followed.
             
             this.setState({ videos });
 
-        }); */
+        });
+        */
+
+        this.videoSearch('funny');
+
+    }
+
+    videoSearch (term) {
+        YoutubeSearch({ key: API_KEY, term: term }, (data) => {
+            this.setState ({
+                videos: data,
+                selectedVideo: data[0]
+            });
+        });
 
     }
  
     render () {
+        
         console.log (this.state.videos);
         console.log (this.state.selectedVideos);
+ 
+        // -.debounde() function : it is a built-in function.
+        // It executes "this.videoSearch (term)" function every 300 miliseconds.
+        const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
+
 
         // [FYI]Contrast to state which must be defined in a constructor,
         // "props" can be located anywhere.
@@ -177,18 +200,40 @@ class App extends Component {
         //2)
         // By adding selectedVideo, we get to chanbe property name to "this.state.selectedVideo"
         // "clickedVideo" is (vd) of "selected(vd)" of VideoListItems in video_list_item
+
+        // onVideoSelect = { selectedVideo => this.setState({ selectedVideo })}
+        // is same as  onVideoSelect = { clickedVideo => this.setState({ selectedVideo : clickedVideo })}
+        // "clickedVideo" is an argumentto receive the "selectedVideo" property. (It is more confusing)
+        // Therefore, when the property of an object assnined to the same property value, 
+        // it would be easier to use the abbrevied "onVideoSelect = { selectedVideo => this.setState({ selectedVideo })}""
+
+        // Any term which is assigned into property of 'term'. 
+        // When it is used by the user, we used any paramerter "term" 
+        /*
         return (
             <div>
-                <SearchBar />
-                <VideoDetail vd = { this.state.selectedVideo} />
+                <SearchBar onSearch = { term => this.videoSearch( { term } ) } />
+                <VideoDetail vd = { this.state.selectedVideo } />
                 <VideoList 
-                    onVideoSelect = { clickedVideo => this.setState({ selectedVideo : clickedVideo })}
+                    onVideoSelect = { selectedVideo => this.setState({ selectedVideo })}
+                    video = { this.state.videos } />
+            </div>   
+        );  
+        */
+
+        // lodash "_"
+        // videoSearch is const variable.
+        //3)
+        return (
+            <div>
+                <SearchBar onSearch = { videoSearch } />
+                <VideoDetail vd = { this.state.selectedVideo } />
+                <VideoList 
+                    onVideoSelect = { selectedVideo => this.setState({ selectedVideo })}
                     video = { this.state.videos } />
             </div>   
         );  
         
-       
-
        
     }
    

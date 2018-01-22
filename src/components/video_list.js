@@ -75,7 +75,6 @@ const VideoList = (props) => {
             key = { vdList.etag } 
             vd = { vdList }
             
-            
             />);        
 
     });
